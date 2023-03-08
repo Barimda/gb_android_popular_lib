@@ -1,9 +1,11 @@
-package ru.gb.student.gb_popular_lib
+package ru.gb.student.gb_popular_lib.ui.users
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import ru.gb.student.gb_popular_lib.R
+import ru.gb.student.gb_popular_lib.domain.UserEntity
 import ru.gb.student.gb_popular_lib.databinding.ItemUserBinding
 
 class UserViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
