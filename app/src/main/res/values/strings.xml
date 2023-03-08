@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">gb_popular_lib</string>
+    <string name="app_name">GitApp</string>
+    <string name="refresh_btn">Refresh</string>
 </resources>
