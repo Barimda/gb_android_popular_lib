@@ -5,11 +5,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import ru.gb.student.gb_popular_lib.App
 import ru.gb.student.gb_popular_lib.app
-import ru.gb.student.gb_popular_lib.data.FakeUsersRepoImpl
-import ru.gb.student.gb_popular_lib.domain.UserEntity
-import ru.gb.student.gb_popular_lib.domain.UsersRepo
+import ru.gb.student.gb_popular_lib.domain.entities.UserEntity
+import ru.gb.student.gb_popular_lib.domain.repos.UsersRepo
 import ru.gb.student.gb_popular_lib.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

@@ -2,8 +2,8 @@ package ru.gb.student.gb_popular_lib.data
 
 import android.os.Handler
 import android.os.Looper
-import ru.gb.student.gb_popular_lib.domain.UserEntity
-import ru.gb.student.gb_popular_lib.domain.UsersRepo
+import ru.gb.student.gb_popular_lib.domain.entities.UserEntity
+import ru.gb.student.gb_popular_lib.domain.repos.UsersRepo
 private const val DATA_LOADING_FAKE_DELAY = 3_000L
 class FakeUsersRepoImpl : UsersRepo {
     private val data: List<UserEntity> = listOf(
