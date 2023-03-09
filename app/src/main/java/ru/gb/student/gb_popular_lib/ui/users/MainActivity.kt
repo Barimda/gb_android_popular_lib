@@ -7,7 +7,6 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.gb.student.gb_popular_lib.app
 import ru.gb.student.gb_popular_lib.domain.entities.UserEntity
-import ru.gb.student.gb_popular_lib.domain.repos.UsersRepo
 import ru.gb.student.gb_popular_lib.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), UsersContract.View {
@@ -20,14 +19,23 @@ class MainActivity : AppCompatActivity(), UsersContract.View {
         super.onCreate(savedInstanceState)
         initViews()
 
-        presenter = UsersPresenter(app.usersRepo)
+        presenter = extractPresenter()
         presenter.attach(this)
+    }
+
+    private fun extractPresenter(): UsersContract.Presenter {
+        return lastCustomNonConfigurationInstance as? UsersContract.Presenter
+            ?: UsersPresenter(app.usersRepo)
     }
 
     override fun onDestroy() {
 
         presenter.detach()
         super.onDestroy()
+    }
+
+    override fun onRetainCustomNonConfigurationInstance(): UsersContract.Presenter? {
+        return presenter
     }
 
     private fun initViews() {
