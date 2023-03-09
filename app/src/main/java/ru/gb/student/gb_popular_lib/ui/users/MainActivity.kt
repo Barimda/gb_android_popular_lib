@@ -10,53 +10,52 @@ import ru.gb.student.gb_popular_lib.domain.entities.UserEntity
 import ru.gb.student.gb_popular_lib.domain.repos.UsersRepo
 import ru.gb.student.gb_popular_lib.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), UsersContract.View {
     private lateinit var binding: ActivityMainBinding
     private val adapter: UsersAdapter = UsersAdapter()
-    private val usersRepo: UsersRepo by lazy { app.usersRepo }
+
+    private lateinit var presenter: UsersContract.Presenter
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         initViews()
+
+        presenter = UsersPresenter(app.usersRepo)
+        presenter.attach(this)
+    }
+
+    override fun onDestroy() {
+
+        presenter.detach()
+        super.onDestroy()
     }
 
     private fun initViews() {
         setContentView(binding.root)
         showProgress(false)
         binding.refreshButton.setOnClickListener {
-            loadData()
+            presenter.onRefresh()
         }
 
         initRecyclerView()
     }
 
-    private fun loadData() {
-        showProgress(true)
-        usersRepo.getUsers(
-            onSuccess = {
-                showProgress(false)
-                onDataLoaded(it)
-            },
-            onError = {
-                showProgress(false)
-                onError(it)
-            })
+    override fun showUsers(users: List<UserEntity>) {
+        adapter.setData(users)
     }
-    private fun onDataLoaded(data:List<UserEntity>) {
-        adapter.setData(data)
-    }
-    private fun onError(throwable: Throwable) {
+
+    override fun showError(throwable: Throwable) {
         Toast.makeText(this, throwable.message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showProgress(inProgress: Boolean) {
+        binding.progressBar.isVisible = inProgress
+        binding.usersRecyclerView.isVisible = !inProgress
     }
 
     private fun initRecyclerView() {
         binding.usersRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.usersRecyclerView.adapter = adapter
 
-    }
-
-    private fun showProgress(inProgress: Boolean) {
-        binding.progressBar.isVisible = inProgress
-        binding.usersRecyclerView.isVisible = !inProgress
     }
 }
