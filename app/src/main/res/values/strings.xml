@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">GitApp</string>
     <string name="refresh_btn">Refresh</string>
+    <string name="user_info_activity_button_back_text">Назад</string>
 </resources>
